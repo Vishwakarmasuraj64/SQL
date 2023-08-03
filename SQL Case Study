@@ -1,0 +1,65 @@
+SQL Case Study Practice set 2
+
+Using Arithematic Operators
+Question 1: From ‘Orders’ Table, access all columns where the order is made in the year 1997.
+Answer 1: Select * from Orders where to_char(column_name, ‘YYYY’) = 1997;
+
+Question 2: From ‘Customers’ Table, access all columns where customerID is less than 50 and more than 25.
+Answer 2:  select * from Customers where customerID >25 and customerID <50;
+Question 3: Filter all records from ‘Customers’ Table where city name is other than ‘London’.
+Answer 3: select* from customers where CityName like '^London’;
+Or
+select* from customers where CityName not like 'London’;
+Using LIKE
+Question 4: From Table ‘Customers’ Filter all columns where CustomerName begins with ‘a’ and ends with ‘s’.
+Answer 4: select * from customers where customerName like 'a%s’ ;
+Question 5: From the ‘Products’ Table Filter all columns where ProductName Begins with ‘To’ and is only 4 Character in Length.
+Answer 5: select* from products where productName like ‘To_ _’ ;
+Question 6: From the ‘Customers’ Table Filter all columns where column ‘ContactName’ has string ‘tin’ in any order.
+Answer 6: select* from customers where contactName like '%tin%’ ;
+Using ORDER BY
+Question 7:  From ‘Employees’ table, write Queries for below scenarios:
+Populate all records and arrange them in the Ascending Order as per their LastName.
+
+Answer 7(i): select * from Employees order by LastName ;
+Populate all records and arrange them in the Descending Order as per their BirthDate.
+Answer 7(ii): select * from Employees order by BirthDate Desc ;
+
+Using LIMIT
+Question 8: From the ‘Products’ table write queries for below scenarions:
+Filter only first 5 records.
+Answer 8(i): select * from Products limit 5 ;
+From 11th Row Filter 8 Records.
+Answer 8(ii): select * from Products limit 8 offset 10 ; 
+Or
+select * from Products limit 10,8 ;
+
+Using MIN & MAX
+Question 9: Find out the Maximum and Minimum Quantity from ‘OrderDetails’ Table where ‘productid’  is greater than 70. (Need only One Query Here)
+Answer 9: select max(quantity) as Max_quantity,Min(quantity) as min_quantity from orderdetails where productid > 70;
+Using COUNT,AVG and SUM
+Question 10: Find out Count of Products, Average Price and sum of all product prices from ‘Products’ Table.
+Answer 10: select count(product), avg(price), sum(price) as Total_Price from products ;
+Using JOINS
+Question 11: By Performing a JOIN on Tables ‘Customers’ and ‘Orders’ Table, find out the total number of orders placed by Customers whose contactnames are 'Hanna Moos','Martín Sommer','Paolo Accorti' and 'Annette Roulet'.
+Answer 11: select count (*) from customers C inner join Orders O on C.customerId= O.customerid where C.ContactName IN (‘Hanna Moos’,’Martín Sommer’,’Paolo Accorti’ ‘Annette Roulet’);
+Question 12: Perform a JOIN on below tables and so so that final outout has mentioned columns.
+Categories (CategoryID,CategoryName)
+Products (ProductID,ProductName,Price)
+Answer 12: select c.CategoryID,c.CategoryName,P.ProductID,P.productName,p.Price from Categories as C inne join Products P on C.categoryID = P.CategoryID ;
+
+Question 13. Perform a JOIN on below 3 Tables so that final outout has mentioned columns.
+1.	Products (ProductID,ProductName,Price)
+2.	Suppliers (SupplierID,SupplierName,Country)
+3.	OrderDetails (OrderID,Quantity)
+Answer: select P.ProductID,P.ProductName,P.Price,s.SupplierID,S SupplierName,s.Country,O.OrderID,O.Quantity from Products P inner join Supplier S on P.productid= S.productid inner join orderdetails O on O.productid = S.productid ;
+Using UNIONS
+Question 14: Perform a Union and Union All on below tables and mentioned Columns.
+Table 1: ‘Products’ ColumnName: productid
+ Table 2: ‘Customers’ ColumnName: Customers
+Table 3: ‘Orders’ ColumnName: OrderId.
+Answer 14(i): select productid from products union select customers from customers union select ordered from Orders ;
+Answer 14(ii): select productid from products union all select customers from customers union all select ordered from Orders
+Using GROUP BY
+Question 15: From ‘OrderDetails’ Table perform a Group By function which will return the result as total quantity ‘per OrderID’ and filter only those results where total quantity per OrderID is more than 20.
+Answer 15: select orderid,sum(orderid) as total_quantity from orderdetails group by orderid having total_quantity >20;
